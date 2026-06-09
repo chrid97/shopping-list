@@ -66,15 +66,19 @@ func main() {
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
-		if err := file.Close(); err != nil {
-			fmt.Println(err)
-		}
+		defer func() {
+			if err := file.Close(); err != nil {
+				fmt.Println(err)
+			}
+		}()
 
 		_, err = file.WriteString(item + "\n")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
