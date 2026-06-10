@@ -15,22 +15,102 @@ func main() {
 
 <head>
   <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shopping List</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: sans-serif;
+      background: #f5f5f5;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 600px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      margin: 0;
+      list-style: none;
+    }
+
+    .items li {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    form {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-top: 1px solid #ddd;
+      background: white;
+    }
+
+    input {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Chris and Vivian's Shopping List</h1>
+  <div class="app">
+    <header>
+      <h1>Chris and Vivian's Shopping List</h1>
+    </header>
 
-	<ul>
-		{{range .}}
-			<li>{{.}}</li>
-		{{end}}
-	</ul>
+    <ul class="items">
+      {{range .}}
+        {{if .}}
+          <li>{{.}}</li>
+        {{end}}
+      {{end}}
+    </ul>
 
-	<form method="POST" action="/add">
-		<input name="item">
-		<button type="submit">Add</button>
-	</form>
+    <form method="POST" action="/add">
+      <input name="item" placeholder="Add item..." autocomplete="off">
+      <button type="submit">Add</button>
+    </form>
+  </div>
 </body>
 
 </html>
